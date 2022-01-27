@@ -1,0 +1,57 @@
+<div class="container text-center">
+    <nav class="navbar home-navbar bg-light navbar-expand-lg">
+      <ul class="navbar-nav">
+        <li class="nav-item mx-5"><a routerLink="/login">Login</a></li>
+        <li class="nav-item mx-5"><a routerLink="/register">Register</a></li>
+      </ul>
+    </nav>
+  </div>
+<div class="container register mt-3">
+    <h3 class="text-center">Register</h3>
+    <form class="my-5" #regfrm='ngForm'>
+        <div class="form-group">
+            <label for="uname">Name</label>
+            <input type="text" class="form-control" placeholder="Enter Name" [(ngModel)]="user.name" required name="uname"
+                #uname='ngModel'>
+            <div *ngIf="uname.dirty || uname.touched">
+                <div class="text-danger my-1" *ngIf="uname.errors?.['required'] ">
+                    Name is Required.
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" placeholder="Enter Email Address" [(ngModel)]="user.emailId"
+                name="emailId" required #email='ngModel' email>
+            <div *ngIf="email.invalid && (email.dirty || email.touched)">
+                <div class="text-danger my-1" *ngIf="email.errors?.['required'] ">
+                    Email id is Required.
+                </div>
+                <div class="text-danger my-1" *ngIf="email.errors?.['email'] ">
+                    Please enter a valid Email id.
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" placeholder="Password" [(ngModel)]="user.password"
+                name="password" required #password='ngModel' minlength="8">
+            <div *ngIf="password.invalid && (password.dirty || password.touched)">
+                <div class="text-danger my-1" *ngIf="password.errors?.['required'] ">
+                    Password is Required.
+                </div>
+                <div class="text-danger my-1" *ngIf="password.errors?.['minlength'] ">
+                    Password should contain atleast 8 characters.
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="rePassword">Re-Enter Password</label>
+            <input type="password" class="form-control" id="reEnterPassword" placeholder="Re-Enter Password"
+                [(ngModel)]="reEnteredPassword" required name="rePassword" required #rePassword='ngModel'>
+            <div class="text-danger my-1" *ngIf="!isSuccess">{{warningMessage}}</div>
+            <div class="text-success my-1" *ngIf="isSuccess">User successfully Registered! You can Login now.</div>
+        </div>
+        <button type="submit" class="btn btn-primary" (click)="checkEverything()">Submit</button>
+    </form>
+</div>
