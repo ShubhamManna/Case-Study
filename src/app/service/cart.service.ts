@@ -7,12 +7,12 @@ import { Cart } from '../model/cart';
 })
 export class CartService {
 
-  private cartList:Cart[]=[]
-  private cartItem:Cart=new Cart()
-  private GrandTotal=0
+  private cartList: Cart[] = []
+  private cartItem: Cart = new Cart()
+  private GrandTotal = 0
   constructor() { }
 
-  addToCartList(item:Artworks){
+  addToCartList(item: Artworks) {
     var found: Boolean = false
     this.cartList.forEach((value, index) => {
       if (value.product.prodId == item.prodId) {
@@ -31,7 +31,19 @@ export class CartService {
       this.cartItem = new Cart()
     }
   }
-  getItems(){
+  getItems() {
     return this.cartList
+  }
+  getGrandTotal() {
+    return this.GrandTotal
+  }
+  removeItem(item: Cart) {
+    item.cartQuantity--
+    item.totalCost -= item.product.price
+    this.GrandTotal -= item.product.price
+    if (item.cartQuantity < 1) {
+      var ind = this.cartList.indexOf(item)
+      this.cartList.splice(ind, 1)
+    }
   }
 }
