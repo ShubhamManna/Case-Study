@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Artworks } from 'src/app/model/artworks';
+import { ArtworkdataService } from 'src/app/service/artworkdata.service';
 
 @Component({
   selector: 'app-artist-corner',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ArtistCornerComponent implements OnInit {
 
-  constructor() { }
-
+  query=""  
+  constructor(private artDataService:ArtworkdataService) { }
+  productList:Artworks[]=this.artDataService.getProductList()
   ngOnInit(): void {
+
   }
+
 
 }

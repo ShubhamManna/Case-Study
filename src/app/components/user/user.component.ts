@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Artworks } from 'src/app/model/artworks';
 import { Users } from 'src/app/model/users';
+import { ArtworkdataService } from 'src/app/service/artworkdata.service';
 import { LoginService } from 'src/app/service/login.service';
 
 @Component({
@@ -8,14 +10,24 @@ import { LoginService } from 'src/app/service/login.service';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  currentUser:Users | null
-  constructor(private loginService:LoginService) { 
-    this.currentUser=loginService.getUserData()
+  currentUser: Users | null
+  productList: Artworks[] = []
+  likedArtworks: Artworks[] = []
+  constructor(private loginService: LoginService, private artDataService: ArtworkdataService) {
+    this.currentUser = loginService.getUserData()
+    this.productList = this.artDataService.getProductList()
+    if (this.currentUser != null) {
+      this.productList.forEach((value, index) => {
+        if (this.currentUser?.likedArtworks.includes(value.prodId)) {
+          this.likedArtworks.push(value)
+        }
+      })
+    }
   }
   ngOnInit(): void {
   }
-  
-  logout(){
+
+  logout() {
     this.loginService.logoutUser()
   }
 

@@ -1,1 +1,15 @@
-<p>Artist compo</p>
+<app-navbar></app-navbar>
+<div class="container">
+    <input type="text" placeholder="Search" class="my-5 text-center searchbar form-control" [(ngModel)]="query">
+    <table class="table">
+        <tr>
+            <th>Artist Name</th>
+            <th>Artworks</th>
+        </tr>                                                                                                                                               
+        <tr *ngFor="let prod of productList | search:query">
+            <td>{{prod.artistName}}</td>
+            <td>1</td>
+        </tr>
+
+    </table>
+</div>

@@ -1,17 +1,7 @@
-<div class="container text-center">
-  <nav class="navbar home-navbar bg-light navbar-expand-lg">
-    <ul class="navbar-nav">
-      <li class="nav-item mx-5">Hi! {{currentUser?.name}}</li>
-      <li class="nav-item mx-5"><a routerLink="/home">Home</a></li>
-      <li class="nav-item mx-5"><a routerLink="/artists">Artists</a></li>
-      <li class="nav-item mx-5"><a routerLink="/user">My Profile</a></li>
-      <li class="nav-item mx-5"><a routerLink="/login" (click)="logout()">Logout</a></li>
-    </ul>
-  </nav>
-</div>
+<app-navbar></app-navbar>
 
-<div class="container userprofile">
-  <div class="my-5">
+<div class="container userprofile mt-5">
+  <div class="my-5 py-3 px-3">
     <div>
       <h5><b>Name: </b></h5>
       <p>{{currentUser?.name}}</p>
@@ -40,4 +30,22 @@
 
     </div>
   </div>
+</div>
+<div class="container">
+  <h3>Liked Artworks</h3>
+  <table class="table">
+    <tr>
+      <th>Product Id</th>
+      <th>Product Name</th>
+      <th>Artist Name</th>
+      <th>Price</th>
+    </tr>
+    <tr *ngFor="let prod of likedArtworks">
+      <td>{{prod.prodId}}</td>
+      <td>{{prod.productName}}</td>
+      <td>{{prod.artistName}}</td>
+      <td>{{prod.price | currency:"INR"}}</td>
+    </tr>
+
+  </table>
 </div>

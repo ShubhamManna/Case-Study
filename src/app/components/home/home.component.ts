@@ -13,33 +13,42 @@ import { LoginService } from 'src/app/service/login.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  currentUser:Users | null = new Users()
-  productList:Artworks[]=this.artDataService.getProductList()
-  cartItems:Cart[]=[]
-  constructor(private logService: LoginService,private router:Router, private artDataService:ArtworkdataService, private cartService:CartService) {
+  currentUser: Users | null = new Users()
+  productList: Artworks[] = this.artDataService.getProductList()
+  cartItems: Cart[] = []
+  query = ""
+  GrandTotal = 0
+  showCart = false
+  constructor(private logService: LoginService, private router: Router, private artDataService: ArtworkdataService, private cartService: CartService) {
     this.currentUser = logService.getUserData()
+    this.cartItems = cartService.getItems()
+    this.GrandTotal = cartService.getGrandTotal()
   }
   ngOnInit(): void {
   }
-  logout(){
-    this.logService.logoutUser()
-  }
-  addLike(prod:Artworks){
+  addLike(prod: Artworks) {
     this.artDataService.addLikes(prod)
     this.logService.addLikedArtWork(prod.prodId)
   }
-  removeLike(prod:Artworks){
+  removeLike(prod: Artworks) {
     this.artDataService.removeLikes(prod)
     this.logService.removeLikedArtWork(prod.prodId)
   }
-  isLiked(prodId:number){
+  isLiked(prodId: number) {
     return this.logService.isLikedArtWork(prodId)
   }
-  addToCart(prod:Artworks){
+  addToCart(prod: Artworks) {
     this.cartService.addToCartList(prod)
-    this.getCartItems()
+    this.GrandTotal = this.cartService.getGrandTotal()
   }
-  getCartItems(){
-    this.cartItems=this.cartService.getItems()
+  getCartItems() {
+    this.cartItems = this.cartService.getItems()
+  }
+  removeFromCart(cr: Cart) {
+    this.cartService.removeItem(cr)
+    this.GrandTotal = this.cartService.getGrandTotal()
+  }
+  toggleCart() {
+    this.showCart = !this.showCart
   }
 }
