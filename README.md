@@ -1,5 +1,5 @@
-# BflCaseStudy
 # De L'Artiste
+## A platform where artists can share their creations and art lovers can buy/sell/react any piece of art.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.3.
 
