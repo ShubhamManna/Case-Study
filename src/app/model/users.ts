@@ -4,4 +4,6 @@ export class Users {
     password:string=""
     userId:number=0
     likedArtworks:number[]=[]
+    isArtist:boolean=false
+    noOfArtWork=0
 }

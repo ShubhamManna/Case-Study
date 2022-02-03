@@ -16,23 +16,50 @@
     </div>
     <div>
       <h5><b>Partnered Artist?</b></h5>
-      <small>If you choose Yes, you will be able to add your products for other users and your profile will be
-        visible.</small><br>
-      <form class="form">
-        <input type="radio" id="yes" name="ifartist" value="Yes">
-        <label for="yes">Yes</label><br>
-
-        <input type="radio" id="no" name="ifartist" value="No">
-        <label for="no">No</label><br>
-
-        <input type="button" name="ifArtist" value="Submit">
-      </form>
-
+      <p *ngIf="currentUser?.isArtist">Yes</p>
+      <p *ngIf="!currentUser?.isArtist">No</p>
     </div>
   </div>
 </div>
-<div class="container">
-  <h3>Liked Artworks</h3>
+<div *ngIf="currentUser?.isArtist" class="container">
+  <div class="container my-3">
+    <h5>My Artworks</h5>
+    <table class="table">
+      <tr>
+        <th>Product Id</th>
+        <th>Product Name</th>
+        <th>Price</th>
+        <th>Likes</th>
+        <th>Remove</th>
+      </tr>
+      <tr *ngFor="let ma of myArtworks">
+        <td>{{ma.prodId}}</td>
+        <td>{{ma.productName}}</td>
+        <td>{{ma.price | currency:"INR"}}</td>
+        <td>{{ma.likes}}</td>
+        <td><input type="button" (click)="removeProduct(ma)" class="btn btn-danger" value="Remove Product"></td>
+      </tr>
+    </table>
+  </div>
+  <div class="container my-5">
+    <h5>Add Artwork</h5>
+    <form>
+      <div>
+        <label for="artWorkName">Name of Artwork</label>
+        <input type="text" name="productName" class="form-control" id="artWorkName" [(ngModel)]="newArt.productName">
+      </div>
+      <div>
+        <label for="artWorkPrice">Price per item(in INR)</label>
+        <input type="number" name="productPrice" class="form-control" id="artWorkName" [(ngModel)]="newArt.price">
+      </div>
+      <div class="my-1">
+        <input type="button" (click)="addProduct()" class="btn btn-success" value="Add Product">
+      </div>
+    </form>
+  </div>
+</div>
+<div class="container my-3">
+  <h5>Liked Artworks</h5>
   <table class="table">
     <tr>
       <th>Product Id</th>

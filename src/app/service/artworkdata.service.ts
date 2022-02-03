@@ -29,4 +29,13 @@ export class ArtworkdataService {
     let ind = this.productList.indexOf(pr)
     this.productList[ind].likes-=1;
    }
+   addProducttoList(item:Artworks){
+    item.prodId=this.productList.length+1
+    this.productList.push(item)
+    return item
+   }
+   removeProducttoList(item:Artworks){
+    var ind=this.productList.indexOf(item)
+    this.productList.splice(ind,1)
+   }
 }

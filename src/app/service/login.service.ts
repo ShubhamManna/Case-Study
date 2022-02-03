@@ -8,7 +8,7 @@ export class LoginService {
 
   private usersList: Users[] = []
   private currentUser: Users | null = null
-  demoUser: Users = { name: "DemoUser", emailId: "demouser@gmail.com", password: "abcd123", userId: 0,likedArtworks:[1,2,5] }
+  demoUser: Users = { name: "DemoUser", emailId: "demouser@gmail.com", password: "abcd123", userId: 0,likedArtworks:[],isArtist:true,noOfArtWork:0 }
   constructor() {
     this.usersList.push(this.demoUser)
   }
